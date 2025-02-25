@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Final</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="text-center">Lista Final de Servidores</h1>
+        <form action="{{ url_for('gerar_anexo') }}" method="POST">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Nome</th>
+                        <th>MASP</th>
+                        <th>Sexo</th>
+                        <th>Raça</th>
+                        <th>Barba</th>
+                        <th>Careca</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for servidor in lista_final %}
+                    <tr>
+                        <td>
+                            {% if servidor[5] %}
+                                <img src="{{ url_for('static', filename=servidor[5]) }}" alt="Foto do Servidor" width="100">
+                            {% else %}
+                                Sem foto
+                            {% endif %}
+                        </td>
+                        <td>{{ servidor[2] }}</td>
+                        <td>{{ servidor[1] }}</td>
+                        <td>{{ servidor[3] }}</td>
+                        <td>{{ servidor[4] }}</td>
+                        <td>{{ servidor[6] }}</td>
+                        <td>{{ servidor[7] }}</td>
+                        <input type="hidden" name="servidores" value="{{ servidor[0] }}">
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-success">Gerar Anexo Fotográfico</button>
+                <a href="{{ url_for('anexo') }}" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
